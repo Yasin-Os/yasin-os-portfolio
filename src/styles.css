@@ -1,0 +1,350 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =========================================================
+   Design system — macOS-inspired, Midnight Indigo base
+   Colors are driven by --accent-h / --accent-s / --accent-l
+   so the theme color switcher only needs to update those vars.
+   ========================================================= */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-mac-red: var(--mac-red);
+  --color-mac-yellow: var(--mac-yellow);
+  --color-mac-green: var(--mac-green);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Default accent: Midnight Indigo */
+  --accent-h: 244;
+  --accent-s: 75%;
+  --accent-l: 60%;
+
+  --background: oklch(0.985 0.005 250);
+  --foreground: oklch(0.18 0.04 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 265);
+  --primary: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.01 250);
+  --secondary-foreground: oklch(0.2 0.04 265);
+  --muted: oklch(0.95 0.01 250);
+  --muted-foreground: oklch(0.5 0.03 260);
+  --accent: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 5%));
+  --accent-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.9 0.012 255);
+  --input: oklch(0.92 0.012 255);
+  --ring: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+
+  --mac-red: #ff5f57;
+  --mac-yellow: #febc2e;
+  --mac-green: #28c840;
+
+  /* Glass + gradients */
+  --glass-bg: color-mix(in oklab, white 70%, transparent);
+  --glass-border: color-mix(in oklab, white 60%, transparent);
+  --gradient-accent: linear-gradient(135deg,
+    hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 10%)),
+    hsl(calc(var(--accent-h) + 20) var(--accent-s) calc(var(--accent-l) - 5%)));
+  --gradient-bg: radial-gradient(ellipse at top, hsl(var(--accent-h) 60% 92%) 0%, transparent 50%),
+                 radial-gradient(ellipse at bottom right, hsl(calc(var(--accent-h) + 30) 60% 90%) 0%, transparent 50%);
+  --shadow-glow: 0 20px 60px -20px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.35);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -8px rgb(0 0 0 / 0.08);
+}
+
+.dark {
+  --background: oklch(0.13 0.025 265);
+  --foreground: oklch(0.97 0.005 250);
+  --card: oklch(0.18 0.03 265);
+  --card-foreground: oklch(0.97 0.005 250);
+  --popover: oklch(0.18 0.03 265);
+  --popover-foreground: oklch(0.97 0.005 250);
+  --primary: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 8%));
+  --primary-foreground: oklch(0.13 0.025 265);
+  --secondary: oklch(0.22 0.03 265);
+  --secondary-foreground: oklch(0.97 0.005 250);
+  --muted: oklch(0.22 0.03 265);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 12%));
+  --accent-foreground: oklch(0.13 0.025 265);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 8%));
+
+  --glass-bg: color-mix(in oklab, oklch(0.2 0.03 265) 70%, transparent);
+  --glass-border: color-mix(in oklab, white 12%, transparent);
+  --gradient-bg: radial-gradient(ellipse at top, hsl(var(--accent-h) 40% 18%) 0%, transparent 60%),
+                 radial-gradient(ellipse at bottom right, hsl(calc(var(--accent-h) + 30) 40% 16%) 0%, transparent 60%);
+  --shadow-glow: 0 20px 60px -20px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.5);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 32px -8px rgb(0 0 0 / 0.4);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background-color: var(--color-background);
+    background-image: var(--gradient-bg);
+    /* background-attachment: fixed causes serious scroll jank on mobile —
+       use a static gradient instead. */
+    color: var(--color-foreground);
+    font-feature-settings: "cv11", "ss01";
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+      "Inter", system-ui, sans-serif;
+  }
+  ::selection { background: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.3); }
+}
+
+@layer components {
+  /* macOS frosted-glass surface */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* macOS window with traffic-light dots */
+  .mac-window {
+    border-radius: var(--radius-xl);
+    background: oklch(0.16 0.025 265);
+    color: oklch(0.95 0.005 250);
+    box-shadow: var(--shadow-soft), 0 0 0 1px rgb(255 255 255 / 0.05) inset;
+    overflow: hidden;
+    font-family: "SF Mono", "JetBrains Mono", "Menlo", monospace;
+  }
+  .mac-window-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    background: linear-gradient(180deg, oklch(0.22 0.025 265), oklch(0.18 0.025 265));
+    border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  }
+  .mac-dot { width: 12px; height: 12px; border-radius: 9999px; display: inline-block; }
+  .mac-dot.red { background: var(--mac-red); }
+  .mac-dot.yellow { background: var(--mac-yellow); }
+  .mac-dot.green { background: var(--mac-green); }
+
+  /* JSON syntax colors inside mac-window */
+  .json-key { color: #ff7a93; }
+  .json-string { color: #9ece6a; }
+  .json-num { color: #ff9e64; }
+  .json-punc { color: #565f89; }
+  .json-bracket { color: #7dcfff; }
+
+  /* Speech bubble */
+  .speech-bubble {
+    position: relative;
+    background: var(--card);
+    color: var(--card-foreground);
+    padding: 0.6rem 0.9rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border);
+  }
+  .speech-bubble::after {
+    content: "";
+    position: absolute;
+    left: -6px; top: 50%; transform: translateY(-50%) rotate(45deg);
+    width: 12px; height: 12px;
+    background: var(--card);
+    border-left: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hover-lift { transition: transform 220ms ease, box-shadow 220ms ease; }
+  .hover-lift:hover { transform: translateY(-3px); box-shadow: var(--shadow-glow); }
+
+  .glow-ring {
+    box-shadow: 0 0 0 4px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.15),
+                0 0 40px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.35);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in { animation: fadeIn 0.6s ease-out both; }
+  .animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+  .animate-scale-in { animation: scaleIn 0.4s cubic-bezier(.2,.9,.3,1.2) both; }
+  .animate-float { animation: float 4s ease-in-out infinite; }
+  .animate-slide-in { animation: slideIn 0.6s ease-out both; }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* Per-section soft borders — full-viewport top + bottom only */
+  .section-frame {
+    position: relative;
+    margin: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background: linear-gradient(180deg,
+      color-mix(in oklab, var(--section-color, transparent) 5%, transparent),
+      transparent 60%);
+    transition: box-shadow 0.5s ease;
+  }
+  .section-frame::before,
+  .section-frame::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background: var(--section-color, hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.35));
+    pointer-events: none;
+  }
+  .section-frame::before { top: 0; }
+  .section-frame::after  { bottom: 0; }
+  .section-tint-1 { --section-color: hsl(244 75% 65% / 0.22); }
+  .section-tint-2 { --section-color: hsl(190 80% 55% / 0.20); }
+  .section-tint-3 { --section-color: hsl(330 75% 65% / 0.22); }
+  .section-tint-4 { --section-color: hsl(38 90% 60% / 0.22); }
+  .section-tint-5 { --section-color: hsl(160 70% 50% / 0.20); }
+
+  /* Universal button micro-interaction */
+  .btn-anim {
+    position: relative;
+    overflow: hidden;
+    transition: transform 220ms cubic-bezier(.2,.9,.3,1.2),
+                box-shadow 260ms ease,
+                background-color 220ms ease,
+                border-color 220ms ease,
+                color 220ms ease;
+    will-change: transform;
+  }
+  .btn-anim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 600ms ease;
+    pointer-events: none;
+  }
+  .btn-anim:hover { transform: translateY(-2px) scale(1.02); box-shadow: var(--shadow-glow); }
+  .btn-anim:hover::after { transform: translateX(120%); }
+  .btn-anim:active { transform: translateY(0) scale(0.98); }
+
+  /* Salam bubble — gentle wobble */
+  .salam-bubble { animation: salamFloat 5s ease-in-out infinite; transform-origin: bottom left; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes slideIn { from { opacity: 0; transform: translateX(-15px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes bgDrift {
+  0%   { background-position: 0% 0%, 100% 100%; }
+  50%  { background-position: 50% 30%, 50% 70%; }
+  100% { background-position: 100% 100%, 0% 0%; }
+}
+@keyframes salamFloat {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50%      { transform: rotate(-1deg) translateY(-3px); }
+}
+
+/* Per-section live ambient orbs */
+.section-frame { isolation: isolate; overflow: hidden; }
+.section-frame > .section-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.section-orbs .orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(36px);
+  opacity: 0.16;
+  transform: translateZ(0);
+  will-change: transform;
+  contain: layout paint;
+}
+
+/* Scroll reveal — applied via IntersectionObserver */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 800ms cubic-bezier(.2,.7,.2,1), transform 800ms cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dark .section-orbs .orb { opacity: 0.14; }
+
+/* Skip rendering work for offscreen sections — major scroll perf win */
+.section-frame {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 600px;
+}
+
+@keyframes orbA { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(20px,-15px,0);} }
+@keyframes orbB { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(-18px,18px,0);} }
+@keyframes orbC { 0%,100% { transform: translate3d(0,0,0);} 50% { transform: translate3d(15px,12px,0);} }
+
+.section-frame::before, .section-frame::after {
+  background-image: linear-gradient(90deg,
+    transparent,
+    var(--section-color, hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 0.4)),
+    transparent);
+  background-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .section-orbs .orb,
+  .section-frame::before,
+  .section-frame::after,
+  .salam-bubble,
+  .btn-anim::after,
+  body { animation: none !important; }
+  .btn-anim:hover { transform: none !important; }
+  .hover-lift:hover { transform: none !important; }
+}
