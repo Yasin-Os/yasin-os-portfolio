@@ -1,1 +1,0 @@
-DROP POLICY IF EXISTS "media public read" ON storage.objects;
