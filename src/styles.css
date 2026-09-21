@@ -346,3 +346,5 @@
   .btn-anim:hover { transform: none !important; }
   .hover-lift:hover { transform: none !important; }
 }
+.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.section-orbs .orb { background: radial-gradient(circle, var(--orb-color) 0%, transparent 70%); filter: none; opacity: 0.6; transform: translateZ(0); will-change: transform; }

@@ -10,10 +10,10 @@ import { BootLoader } from "@/components/BootLoader";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
-      <div>
-        <h1 className="text-7xl font-bold">404</h1>
-        <h2 className="mt-4 text-xl font-semibold">Page not found</h2>
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
         <Link to="/" className="mt-6 inline-flex rounded-full bg-primary px-5 py-2 text-sm text-primary-foreground">Go home</Link>
       </div>
     </div>
@@ -23,8 +23,8 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 text-center">
-      <div>
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold">Something went wrong</h1>
         <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
         <button onClick={() => { router.invalidate(); reset(); }} className="mt-4 rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground">Try again</button>
@@ -61,15 +61,18 @@ function Chrome({ children }: { children: React.ReactNode }) {
 
 function BootWrap({ children }: { children: React.ReactNode }) {
   const [showLoader, setShowLoader] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const seen = sessionStorage.getItem("boot_seen");
-    return !seen && window.location.pathname === "/";
+    if (typeof window !== "undefined") return !sessionStorage.getItem("boot_seen");
+    return true; // Server renders loader to completely block flash
   });
 
-  if (showLoader) {
-    return <BootLoader onDone={() => { setShowLoader(false); sessionStorage.setItem("boot_seen", "true"); }} />;
-  }
-  return <>{children}</>;
+  return (
+    <>
+      {showLoader && <BootLoader onDone={() => { setShowLoader(false); sessionStorage.setItem("boot_seen", "true"); }} />}
+      <div style={{ visibility: showLoader ? "hidden" : "visible", opacity: showLoader ? 0 : 1, transition: "opacity 0.8s ease-in-out" }}>
+        {children}
+      </div>
+    </>
+  );
 }
 
 function RootComponent() {
