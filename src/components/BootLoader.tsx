@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-/**
- * Unique boot loader: typing animation with concentric pulse rings,
- * radial glow and floating particles. Text content/colors preserved.
- */
 const ARABIC = "السلام عليكم";
-const BANGLA = "আমার ক্যানভাসে আপনাকে স্বাগতম";
+const BANGLA = "আমার ক্যানভাসে\nআপনাকে স্বাগতম";
 
 const GREEN = "#047857";
 const PINK = "#c2185b";
@@ -57,15 +53,10 @@ export function BootLoader({ onDone }: { onDone: () => void }) {
         leaving ? "opacity-0" : "opacity-100"
       }`}
     >
-      {/* Radial glow */}
       <div
         className="pointer-events-none absolute inset-0 transition-colors duration-700"
-        style={{
-          background: `radial-gradient(circle at 50% 50%, ${color}26 0%, transparent 55%)`,
-        }}
+        style={{ background: `radial-gradient(circle at 50% 50%, ${color}26 0%, transparent 55%)` }}
       />
-
-      {/* Pulse rings */}
       {!reduced && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <span className="boot-ring" style={{ borderColor: `${color}55` }} />
@@ -73,8 +64,6 @@ export function BootLoader({ onDone }: { onDone: () => void }) {
           <span className="boot-ring boot-ring-3" style={{ borderColor: `${color}22` }} />
         </div>
       )}
-
-      {/* Floating particles */}
       {!reduced && (
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {Array.from({ length: 12 }).map((_, i) => (
@@ -91,71 +80,30 @@ export function BootLoader({ onDone }: { onDone: () => void }) {
           ))}
         </div>
       )}
-
-      <div className="relative w-full flex items-center justify-center px-6">
+      <div className="relative w-full flex items-center justify-center px-6 text-center">
         {phase === 0 ? (
-          <p
-            dir="rtl"
-            lang="ar"
-            className="boot-text font-serif text-4xl sm:text-6xl tracking-wide drop-shadow-[0_0_24px_rgba(4,120,87,0.45)]"
-            style={{ color: GREEN }}
-          >
+          <p dir="rtl" lang="ar" className="boot-text font-serif text-4xl sm:text-6xl tracking-wide drop-shadow-[0_0_24px_rgba(4,120,87,0.45)]" style={{ color: GREEN }}>
             {arabicTyped}
-            <span
-              className="inline-block w-[3px] h-[1em] align-middle ml-1 boot-caret"
-              style={{ backgroundColor: GREEN }}
-            />
+            <span className="inline-block w-[3px] h-[1em] align-middle ml-1 boot-caret" style={{ backgroundColor: GREEN }} />
           </p>
         ) : (
-          <p
-            lang="bn"
-            className="boot-text font-serif text-3xl sm:text-5xl tracking-wide drop-shadow-[0_0_24px_rgba(194,24,91,0.45)]"
-            style={{ color: PINK }}
-          >
+          <p lang="bn" className="boot-text font-serif text-3xl sm:text-5xl tracking-wide drop-shadow-[0_0_24px_rgba(194,24,91,0.45)] whitespace-pre-line leading-[1.3]" style={{ color: PINK }}>
             {banglaTyped}
-            <span
-              className="inline-block w-[3px] h-[1em] align-middle ml-1 boot-caret"
-              style={{ backgroundColor: PINK }}
-            />
+            <span className="inline-block w-[3px] h-[1em] align-middle ml-1 boot-caret" style={{ backgroundColor: PINK }} />
           </p>
         )}
       </div>
-
       <style>{`
         .boot-text { animation: boot-fade 600ms ease-out both; }
         .boot-caret { animation: boot-blink 0.9s steps(2) infinite; }
-        @keyframes boot-fade {
-          from { opacity: 0; transform: translateY(8px) scale(0.98); filter: blur(4px); }
-          to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-        }
+        @keyframes boot-fade { from { opacity: 0; transform: translateY(8px) scale(0.98); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
         @keyframes boot-blink { 50% { opacity: 0; } }
-        .boot-ring {
-          position: absolute;
-          width: 260px; height: 260px;
-          border-radius: 9999px;
-          border: 1.5px solid;
-          opacity: 0;
-          animation: boot-pulse 2.6s ease-out infinite;
-        }
+        .boot-ring { position: absolute; width: 260px; height: 260px; border-radius: 9999px; border: 1.5px solid; opacity: 0; animation: boot-pulse 2.6s ease-out infinite; }
         .boot-ring-2 { width: 420px; height: 420px; animation-delay: 0.6s; }
         .boot-ring-3 { width: 580px; height: 580px; animation-delay: 1.2s; }
-        @keyframes boot-pulse {
-          0% { transform: scale(0.6); opacity: 0.9; }
-          100% { transform: scale(1.15); opacity: 0; }
-        }
-        .boot-particle {
-          position: absolute;
-          width: 5px; height: 5px;
-          border-radius: 9999px;
-          opacity: 0.55;
-          filter: blur(0.5px);
-          animation: boot-float 3.2s ease-in-out infinite;
-          box-shadow: 0 0 14px currentColor;
-        }
-        @keyframes boot-float {
-          0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; }
-          50% { transform: translate3d(0, -20px, 0) scale(1.4); opacity: 0.9; }
-        }
+        @keyframes boot-pulse { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(1.15); opacity: 0; } }
+        .boot-particle { position: absolute; width: 5px; height: 5px; border-radius: 9999px; opacity: 0.55; filter: blur(0.5px); animation: boot-float 3.2s ease-in-out infinite; box-shadow: 0 0 14px currentColor; }
+        @keyframes boot-float { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.45; } 50% { transform: translate3d(0, -20px, 0) scale(1.4); opacity: 0.9; } }
       `}</style>
     </div>
   );
