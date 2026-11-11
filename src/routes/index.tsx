@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
     const t = loaderData?.ogTitle ?? "Yasin Adnan — Portfolio";
     const d = loaderData?.ogDescription ?? "Personal portfolio of Yasin Adnan.";
     const img = loaderData?.ogImage;
-    const url = "https://yasin-os.lovable.app/";
+    const url = "https://yasin-os-portfolio.vercel.app/";
     return {
       meta: [
         { title: t },
